@@ -15,13 +15,12 @@
     <description>This plugin will set URL encoded versions of given properties into the build environment.</description>
     <inceptionYear>2012</inceptionYear>
     
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/1and1/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/1and1/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/1and1/${project.artifactId}/</url>
+    </scm>
+
     <developers>
         <developer>
             <id>mifr</id>
