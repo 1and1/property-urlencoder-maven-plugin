@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>mojo-parent</artifactId>
-        <version>30</version>
+        <groupId>net.oneandone</groupId>
+        <artifactId>foss-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>net.oneandone.maven</groupId>
     <artifactId>property-urlencoder-maven-plugin</artifactId>
@@ -13,39 +13,7 @@
 
     <name>property-urlencoder Maven Plugin</name>
     <description>This plugin will set URL encoded versions of given properties into the build environment.</description>
-    <url>https://github.com/1and1/${project.artifactId}/</url>
-    
-    <organization>
-        <name>1&amp;1</name>
-        <url>https://1and1.github.com/</url>
-    </organization>
-
-
     <inceptionYear>2012</inceptionYear>
-    
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>http://huschteguzzel.de/hudson/job/${project.artifactId}/</url>
-    </ciManagement>
-
-    <scm>
-        <connection>scm:git:git://github.com/1and1/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/1and1/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/1and1/${project.artifactId}/</url>
-    </scm>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/1and1/${project.artifactId}/issues/?sort=created&amp;state=open</url>
-    </issueManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mojo.java.target>1.6</mojo.java.target>
-    </properties>
     
     <licenses>
         <license>
@@ -74,6 +42,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -86,7 +55,7 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>                
+                <artifactId>maven-plugin-plugin</artifactId>
                 <configuration>
                     <goalPrefix>property-urlencoder</goalPrefix>
                 </configuration>
@@ -100,20 +69,12 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>net.oneandone</groupId>
+                <artifactId>foss-configs</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </extension>
+        </extensions>
     </build>
-        <distributionManagement>
-        <site>
-            <id>github</id>
-            <name>maven-reports at github</name>
-            <url>https://github.com/1and1/${project.artifactId}</url>
-        </site>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 </project>
