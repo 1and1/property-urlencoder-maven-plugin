@@ -15,6 +15,8 @@
     <description>This plugin will set URL encoded versions of given properties into the build environment.</description>
     <inceptionYear>2012</inceptionYear>
     
+    <url>https://github.com/1and1/${project.artifactId}/</url>
+
     <scm>
         <connection>scm:git:git://github.com/1and1/${project.artifactId}.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/1and1/${project.artifactId}.git</developerConnection>
@@ -25,7 +27,7 @@
         <developer>
             <id>mifr</id>
             <name>Mirko Friedenhagen</name>
-            <email>mirko.friedenhagen[at]1und1[dot]de</email>
+            <email>mirko.friedenhagen@1und1.de</email>
             <organization>1 &amp; 1 Internet AG</organization>
             <organizationUrl>${project.url}</organizationUrl>
             <url>http://github.com/mfriedenhagen/</url>
@@ -41,7 +43,14 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

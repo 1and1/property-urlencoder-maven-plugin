@@ -15,67 +15,87 @@ package net.oneandone.maven.propertyurlencoder;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.apache.maven.plugin.PluginParameterExpressionEvaluator;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Goal which touches a timestamp file.
+ * Goal which adds the url-encoded form of properties to the project.
  *
  * @goal encode
- * 
- * @phase process-sources
+ *
+ * @phase validate
  */
-public class PropertyUrlEncoderMojo
-    extends AbstractMojo
-{
+public class PropertyUrlEncoderMojo extends AbstractMojo {
+
     /**
-     * Location of the file.
-     * @parameter expression="${project.build.directory}"
+     * The maven project.
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
+
+    /**
+     * @parameter expression="${session}"
+     * @readonly
      * @required
      */
-    private File outputDirectory;
+    protected MavenSession session;
 
-    public void execute()
-        throws MojoExecutionException
-    {
-        File f = outputDirectory;
+    /**
+     * @parameter expression="${mojoExecution}"
+     */
+    private org.apache.maven.plugin.MojoExecution execution;
 
-        if ( !f.exists() )
-        {
-            f.mkdirs();
-        }
+    /**
+     * Comma separated list of properties to encode.
+     *
+     * @parameter expression="${property-url-encoder.properties}"
+     *
+     * @required
+     */
+    private String properties;
 
-        File touch = new File( f, "touch.txt" );
+    /**
+     * Suffix to append to the urlencoded properties
+     *
+     * @parameter default-value=".urlencoded" expression="${property-url-encoder.suffix}"
+     *
+     */
+    private String suffix;
 
-        FileWriter w = null;
-        try
-        {
-            w = new FileWriter( touch );
+    public void execute() throws MojoExecutionException {
 
-            w.write( "touch.txt" );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Error creating file " + touch, e );
-        }
-        finally
-        {
-            if ( w != null )
-            {
-                try
-                {
-                    w.close();
-                }
-                catch ( IOException e )
-                {
-                    // ignore
-                }
+        final List<String> propertyNames = Arrays.asList(StringUtils.stripAll(StringUtils.split(properties, ",")));
+        final PluginParameterExpressionEvaluator evaluator = new PluginParameterExpressionEvaluator(session, execution);
+        for (String propertyName : propertyNames) {
+            final String propertyValue;
+            try {
+                getLog().debug("propertyName=" + propertyName);
+                propertyValue = (String) evaluator.evaluate("${" + propertyName + "}");
+            } catch (ExpressionEvaluationException ex) {
+                throw new RuntimeException(ex);
             }
+            final String encodedValue;
+            try {
+                encodedValue = URLEncoder.encode(propertyValue, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                throw new RuntimeException(ex);
+            }
+            final String nameOfEncodedProperty = propertyName + suffix;
+            project.getProperties().put(nameOfEncodedProperty, encodedValue);
+            getLog().debug(String.format("%s=%s", nameOfEncodedProperty, encodedValue));
         }
+
+
     }
 }
