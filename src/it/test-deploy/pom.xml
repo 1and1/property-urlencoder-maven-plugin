@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>company.project</groupId>
+    <artifactId>test-deploy</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>
+        This test project checks that the deploy goes to an urlencoded directory.
+    </description>
+    <properties>
+        <qa-ticket-id>QA-125</qa-ticket-id>
+        <qa-ticket-url>http://jira.example.com/browse/${qa-ticket-id}</qa-ticket-url>
+        <qa-ticket-url.enc>http%253A%252F%252Fjira.example.com%252Fbrowse%252F${qa-ticket-id}</qa-ticket-url.enc>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.oneandone.maven</groupId>
+                <artifactId>property-urlencoder-maven-plugin</artifactId>
+                <version>@project.version@</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>encode</goal>
+                        </goals>
+                        <configuration>
+                            <properties>qa-ticket-id,qa-ticket-url</properties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <TicketUrl>${qa-ticket-url.urlencoded}</TicketUrl>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>company-snapshots</id>
+            <url>file:target/${qa-ticket-url.enc}</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

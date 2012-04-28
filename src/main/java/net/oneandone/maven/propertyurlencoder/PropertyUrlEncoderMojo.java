@@ -73,11 +73,11 @@ public class PropertyUrlEncoderMojo extends AbstractMojo {
      */
     private String suffix;
 
+    @Override
     public void execute() throws MojoExecutionException {
-
         final List<String> propertyNames = Arrays.asList(StringUtils.stripAll(StringUtils.split(properties, ",")));
         final PluginParameterExpressionEvaluator evaluator = new PluginParameterExpressionEvaluator(session, execution);
-        for (String propertyName : propertyNames) {
+        for (final String propertyName : propertyNames) {
             final String propertyValue;
             try {
                 getLog().debug("propertyName=" + propertyName);
