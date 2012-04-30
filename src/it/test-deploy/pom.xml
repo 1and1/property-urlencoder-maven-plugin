@@ -28,10 +28,12 @@
                         </configuration>
                     </execution>
                 </executions>
+                <extensions>true</extensions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -40,7 +42,7 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <TicketUrl>${qa-ticket-url.urlencoded}</TicketUrl>
+                            <TicketUrl>${qa-ticket-url.lcenc}</TicketUrl>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -50,7 +52,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>company-snapshots</id>
-            <url>file:target/${qa-ticket-url.enc}</url>
+            <url>file:target/${qa-ticket-url.lcenc}</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
