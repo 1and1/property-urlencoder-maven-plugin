@@ -1,4 +1,4 @@
-package net.oneandone.maven.propertyurlencoder;
+package net.oneandone.maven.plugins.propertyurlencoder;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

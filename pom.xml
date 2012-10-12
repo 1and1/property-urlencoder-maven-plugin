@@ -2,11 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>net.oneandone</groupId>
+        <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1.4</version>
     </parent>
-    <groupId>net.oneandone.maven</groupId>
+    <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>property-urlencoder-maven-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
@@ -14,7 +14,7 @@
     <name>property-urlencoder Maven Plugin</name>
     <description>This plugin will set URL encoded versions of given properties into the build environment.</description>
     <inceptionYear>2012</inceptionYear>
-    
+
     <url>https://github.com/1and1/${project.artifactId}/</url>
 
     <scm>

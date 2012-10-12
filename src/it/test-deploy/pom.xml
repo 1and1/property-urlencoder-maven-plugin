@@ -15,7 +15,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>net.oneandone.maven</groupId>
+                <groupId>net.oneandone.maven.plugins</groupId>
                 <artifactId>property-urlencoder-maven-plugin</artifactId>
                 <version>@project.version@</version>
                 <executions>
